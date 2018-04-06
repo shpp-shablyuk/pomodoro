@@ -1,0 +1,72 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Pomodoro</title>
+
+  <link rel="shortcut icon" href="./pomodoro-favicon.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="./css/styles.css">
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="pomodoro">
+      <div class="row">
+        <div class="col s12 center-align">
+          <button class="waves-effect blue btn" type="button" @click="startWork"><i class="material-icons left">laptop_mac</i><span
+                  class="hide-on-small-only">Work</span></button>
+          <button class="waves-effect blue btn" type="button" @click="startShortRest"><i class="material-icons left">directions_walk</i><span
+                  class="hide-on-small-only">Short Rest</span></button>
+          <button class="waves-effect blue btn" type="button" @click="startLongRest"><i class="material-icons left">fitness_center</i><span
+                  class="hide-on-small-only">Long Rest</span></button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s12 center-align" id="timer">{{ time }}</div>
+
+      </div>
+
+      <div class="row" id="buttons">
+        <div class="col s12 center-align">
+          <button class="waves-effect waves-circle green btn-large" type="button" @click="start" title="Start"><i class="material-icons">play_arrow</i></button>
+          <button class="waves-effect waves-circle yellow btn-large" type="button" @click="pause" title="Pause"><i class="material-icons">pause</i></button>
+          <button class="waves-effect waves-circle red btn-large" type="button" @click="stop" title="Stop"><i class="material-icons">stop</i></button>
+        </div>
+      </div>
+      <transition name="fade">
+        <div class="row" id="settings" v-show="isShowSettings">
+          <div class="col s12 center-align">
+            <div class="input-field col s4">
+              <input class="center-align" type="number" v-model.number="work" @change='changeWorkTime'>
+            </div>
+            <div class="input-field col s4">
+              <input class="center-align" type="number" v-model.number="shortRest" @change='changeShortRestTime'>
+            </div>
+            <div class="input-field col s4">
+              <input class="center-align" type="number" v-model.number="longRest" @change='changeLongRestTime'>
+            </div>
+          </div>
+          <div class="col s12 right-align">
+            <button class="waves-effect  red lighten-1 btn" @click="isShowSettings = false">Close</button>
+          </div>
+        </div>
+      </transition>
+      <transition name="fade">
+        <div class="fixed-action-btn" v-show="!isShowSettings">
+          <a class="btn-floating btn-large red" @click="isShowSettings = true"><i class="large material-icons">settings</i></a>
+        </div>
+      </transition>
+    </div>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
